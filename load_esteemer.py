@@ -16,11 +16,14 @@ warnings.filterwarnings("ignore")
 def read(file):
     start_time = time.time()
     g = Graph()
-    g.parse(file)
+    g.parse(data=file,
+            format='json-ld')
     logging.critical(" reading graph--- %s seconds ---" % (time.time() - start_time)) 
     return g
 def read_contenders(graph_read):
     start_time = time.time()
+    #contender_messages_df = to_dataframe(graph_read)
+    #contender_messages_df.to_csv("contenders.csv")
     qres = graph_read.query(
         """
     PREFIX obo: <http://purl.obolibrary.org/obo/>
@@ -42,6 +45,7 @@ def read_contenders(graph_read):
     """
     )
     logging.critical(" querying contenders graph--- %s seconds ---" % (time.time() - start_time)) 
+    
     return qres.graph
 def read_measures(graph_read):
     start_time = time.time()

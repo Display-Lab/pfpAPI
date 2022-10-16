@@ -32,8 +32,8 @@ class Esteemer():
     val=" "
     def __init__(self, spek_tp: str = "{}", preferences: str = "{}", message: str = "{}", history: str = "{}"):
         self.graph_read=read(spek_tp)
-        #print(self.graph_read)
         self.contenders_graph = read_contenders(self.graph_read)
+       
         self.measures_graph = read_measures(self.graph_read)
         self.comparator_graph = read_comparators(self.graph_read)
 

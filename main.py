@@ -51,6 +51,7 @@ async def getproviderinfo(info:Request):
     preferences = req_info1['Preferences']
     history=req_info1['History']
     message_code =start_up_code['message_code']
+    spek_tp= json.dumps(spek_tp)
     # print(preferences)
     # print(history)
     # print(message_code)
@@ -58,11 +59,11 @@ async def getproviderinfo(info:Request):
     #spek_tp =input_message['graph']
     es = esteemer.Esteemer(spek_tp,preferences,message_code,history)
     es.transform()
-    es.apply_preferences(preferences)
-    es.apply_history(history)
-    selected_message=es.select_message()
+    #es.apply_preferences(preferences)
+    #es.apply_history(history)
+    #selected_message=es.select_message()
     
-    print(selected_message)
+    #print(selected_message)
     
     #req_info = req_info1+message_code+templates
     return {
