@@ -16,8 +16,8 @@ from SPARQLWrapper import XML, SPARQLWrapper
 
 
 # from .load_for_real import load
-from load_esteemer import read, transform,read_contenders,read_measures,read_comparators
-from score import score, select,apply_indv_preferences,apply_history_message
+from esteemer.load_esteemer import read, transform,read_contenders,read_measures,read_comparators
+from esteemer.score import score, select,apply_indv_preferences,apply_history_message
 
 # load()
 
@@ -30,12 +30,14 @@ class Esteemer():
     measures_graph=" "
     comparator_graph=" "
     val=" "
-    def __init__(self, spek_tp: str = "{}", preferences: str = "{}", message: str = "{}", history: str = "{}"):
+    val1=" "
+    def __init__(self, spek_tp: str = "{}", preferences: str = "{}", message_code: str = "{}", history: str = "{}"):
         self.graph_read=read(spek_tp)
         self.contenders_graph = read_contenders(self.graph_read)
        
         self.measures_graph = read_measures(self.graph_read)
         self.comparator_graph = read_comparators(self.graph_read)
+        self.message_code =message_code
 
     def transform(self):
         self.meaningful_messages_final = transform(self.contenders_graph,self.measures_graph,self.comparator_graph)
@@ -46,16 +48,20 @@ class Esteemer():
         self.applied_individual_messages,self.max_val = apply_indv_preferences(self.meaningful_messages_final,indv_preferences_read)
         global val 
         self.val = self.max_val.split('_')
+        global val1
+        self.val1=self.val[0]
+        #print(self.val1)
     #return applied_individual_messages , val
 
     def apply_history(self,history):
-        self.applied_history_filter = apply_history_message(self.applied_individual_messages,history,val[0],self.message_code)
+        self.applied_history_filter = apply_history_message(self.applied_individual_messages,history,self.val1,self.message_code)
     
 
     def select_message (self):
     
-        finalData = select(self.applied_history_filter,self.val,self.message_code)
-   
+        self.finalData = select(self.applied_history_filter,self.val1,self.message_code)
+        #self.finalData.replace("\\", "")
+        return self.finalData
 
 
 

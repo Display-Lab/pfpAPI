@@ -144,26 +144,26 @@ def apply_history_message(applied_individual_messages,history,max_val,message_co
     message_code_df = pd.json_normalize(message_code)
     history_df =pd.json_normalize(history)
     #history_df.to_csv("history_df.csv")
-    month1 = history_df[['History.Month1.psdo:PerformanceSummaryDisplay{Literal}','History.Month1.Measure Name','History.Month1.Message Code']].copy()
-    month2 = history_df[['History.Month2.psdo:PerformanceSummaryDisplay{Literal}','History.Month2.Measure Name','History.Month2.Message Code']].copy()
-    month3 = history_df[['History.Month3.psdo:PerformanceSummaryDisplay{Literal}','History.Month3.Measure Name','History.Month3.Message Code']].copy()
-    month4 = history_df[['History.Month4.psdo:PerformanceSummaryDisplay{Literal}','History.Month4.Measure Name','History.Month4.Message Code']].copy()
-    month5 = history_df[['History.Month5.psdo:PerformanceSummaryDisplay{Literal}','History.Month5.Measure Name','History.Month5.Message Code']].copy()
-    month6 = history_df[['History.Month6.psdo:PerformanceSummaryDisplay{Literal}','History.Month6.Measure Name','History.Month6.Message Code']].copy()
+    month1 = history_df[['Month1.psdo:PerformanceSummaryDisplay{Literal}','Month1.Measure Name','Month1.Message Code']].copy()
+    month2 = history_df[['Month2.psdo:PerformanceSummaryDisplay{Literal}','Month2.Measure Name','Month2.Message Code']].copy()
+    month3 = history_df[['Month3.psdo:PerformanceSummaryDisplay{Literal}','Month3.Measure Name','Month3.Message Code']].copy()
+    month4 = history_df[['Month4.psdo:PerformanceSummaryDisplay{Literal}','Month4.Measure Name','Month4.Message Code']].copy()
+    month5 = history_df[['Month5.psdo:PerformanceSummaryDisplay{Literal}','Month5.Measure Name','Month5.Message Code']].copy()
+    month6 = history_df[['Month6.psdo:PerformanceSummaryDisplay{Literal}','Month6.Measure Name','Month6.Message Code']].copy()
     applied_individual_messages.reset_index()
     for index, row in applied_individual_messages.iterrows():
         disp=row['psdo:PerformanceSummaryDisplay{Literal}'].split(",")
-        if (month1['History.Month1.psdo:PerformanceSummaryDisplay{Literal}'][0] in disp and month1['History.Month1.Measure Name'][0]== row['Measure Name'] and month1['History.Month1.Message Code'][0]== row['psdo:PerformanceSummaryTextualEntity{Literal}'] ):
+        if (month1['Month1.psdo:PerformanceSummaryDisplay{Literal}'][0] in disp and month1['Month1.Measure Name'][0]== row['Measure Name'] and month1['Month1.Message Code'][0]== row['psdo:PerformanceSummaryTextualEntity{Literal}'] ):
             applied_individual_messages = applied_individual_messages.drop(index)
-        if (month2['History.Month2.psdo:PerformanceSummaryDisplay{Literal}'][0] in disp and month2['History.Month2.Measure Name'][0]== row['Measure Name'] and month2['History.Month2.Message Code'][0]== row['psdo:PerformanceSummaryTextualEntity{Literal}'] ):
+        if (month2['Month2.psdo:PerformanceSummaryDisplay{Literal}'][0] in disp and month2['Month2.Measure Name'][0]== row['Measure Name'] and month2['Month2.Message Code'][0]== row['psdo:PerformanceSummaryTextualEntity{Literal}'] ):
             applied_individual_messages = applied_individual_messages.drop(index)
-        if (month3['History.Month3.psdo:PerformanceSummaryDisplay{Literal}'][0] in disp and month3['History.Month3.Measure Name'][0]== row['Measure Name'] and month3['History.Month3.Message Code'][0]== row['psdo:PerformanceSummaryTextualEntity{Literal}'] ):
+        if (month3['Month3.psdo:PerformanceSummaryDisplay{Literal}'][0] in disp and month3['Month3.Measure Name'][0]== row['Measure Name'] and month3['Month3.Message Code'][0]== row['psdo:PerformanceSummaryTextualEntity{Literal}'] ):
             applied_individual_messages = applied_individual_messages.drop(index)
-        if (month4['History.Month4.psdo:PerformanceSummaryDisplay{Literal}'][0] in disp and month4['History.Month4.Measure Name'][0]== row['Measure Name'] and month4['History.Month4.Message Code'][0]== row['psdo:PerformanceSummaryTextualEntity{Literal}'] ):
+        if (month4['Month4.psdo:PerformanceSummaryDisplay{Literal}'][0] in disp and month4['Month4.Measure Name'][0]== row['Measure Name'] and month4['Month4.Message Code'][0]== row['psdo:PerformanceSummaryTextualEntity{Literal}'] ):
             applied_individual_messages = applied_individual_messages.drop(index)
-        if (month5['History.Month5.psdo:PerformanceSummaryDisplay{Literal}'][0] in disp and month5['History.Month5.Measure Name'][0]== row['Measure Name'] and month5['History.Month5.Message Code'][0]== row['psdo:PerformanceSummaryTextualEntity{Literal}'] ):
+        if (month5['Month5.psdo:PerformanceSummaryDisplay{Literal}'][0] in disp and month5['Month5.Measure Name'][0]== row['Measure Name'] and month5['Month5.Message Code'][0]== row['psdo:PerformanceSummaryTextualEntity{Literal}'] ):
             applied_individual_messages = applied_individual_messages.drop(index)
-        if (month6['History.Month6.psdo:PerformanceSummaryDisplay{Literal}'][0] in disp and month6['History.Month6.Measure Name'][0]== row['Measure Name'] and month6['History.Month6.Message Code'][0]== row['psdo:PerformanceSummaryTextualEntity{Literal}'] ):
+        if (month6['Month6.psdo:PerformanceSummaryDisplay{Literal}'][0] in disp and month6['Month6.Measure Name'][0]== row['Measure Name'] and month6['Month6.Message Code'][0]== row['psdo:PerformanceSummaryTextualEntity{Literal}'] ):
             applied_individual_messages = applied_individual_messages.drop(index)
     return applied_individual_messages
 
