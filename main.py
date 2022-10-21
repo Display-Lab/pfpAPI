@@ -7,7 +7,10 @@ from uuid import UUID,uuid4
 from load import read
 from typing import Final
 import json
+import pandas as pd
 import esteemer.esteemer as esteemer
+import mod_collector.mod_collector as mod_collector
+
 #from models import User,Gender,Role, UserUpdateRequest
 app = FastAPI()
 
@@ -47,21 +50,30 @@ async def read_items(item_id: str):
 @app.post("/getproviderinfo/")
 async def getproviderinfo(info:Request):
     req_info1 =await info.json()
-
+    ##Running Mod Collector
+    spek_tp = req_info1
+    performance_data = req_info1["Performance_data"]
+    performance_data_df =pd.DataFrame (performance_data, columns = [ "Staff_Number","Measure_Name","Month","Passed_Count","Flagged_Count","Denominator"])
+    performance_data_df.columns = performance_data_df.iloc[0]
+    performance_data_df = performance_data_df[1:]
+    mc=mod_collector.Mod_collector(spek_tp,performance_data_df)
+    mc.transform()
+    mc.gap_calc_insert()
+    mc.trend_calc_insert()
+    mc.trend_pred()
+    spek_mc= mc.mod_collector_output()
     ##Running Esteemer
-    spek_mc = req_info1["@graph"]
     preferences = req_info1['Preferences']
     history=req_info1['History']
     message_code =start_up_code['message_code']
-    spek_mc= json.dumps(spek_mc)
     es = esteemer.Esteemer(spek_mc,preferences,message_code,history)
     es.transform()
     es.apply_preferences(preferences)
     es.apply_history(history)
     selected_message=es.select_message()
-    print(selected_message)
+    
     return {
         "status":"Success",
-        "data":selected_message
+        "data": selected_message
     }
     

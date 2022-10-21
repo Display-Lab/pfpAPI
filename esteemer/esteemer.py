@@ -32,7 +32,8 @@ class Esteemer():
     val=" "
     val1=" "
     def __init__(self, spek_tp: str = "{}", preferences: str = "{}", message_code: str = "{}", history: str = "{}"):
-        self.graph_read=read(spek_tp)
+        #self.graph_read=read(spek_tp)
+        self.graph_read =spek_tp
         self.contenders_graph = read_contenders(self.graph_read)
        
         self.measures_graph = read_measures(self.graph_read)

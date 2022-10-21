@@ -143,7 +143,7 @@ def messagepreferences(display_preferences,message_preferences_df):
 def apply_history_message(applied_individual_messages,history,max_val,message_code):
     message_code_df = pd.json_normalize(message_code)
     history_df =pd.json_normalize(history)
-    #history_df.to_csv("history_df.csv")
+    history_df.to_csv("history_df.csv")
     month1 = history_df[['Month1.psdo:PerformanceSummaryDisplay{Literal}','Month1.Measure Name','Month1.Message Code']].copy()
     month2 = history_df[['Month2.psdo:PerformanceSummaryDisplay{Literal}','Month2.Measure Name','Month2.Message Code']].copy()
     month3 = history_df[['Month3.psdo:PerformanceSummaryDisplay{Literal}','Month3.Measure Name','Month3.Message Code']].copy()
