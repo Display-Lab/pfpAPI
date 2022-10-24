@@ -9,6 +9,7 @@ from typing import Final
 import json
 import pandas as pd
 import esteemer.esteemer as esteemer
+import candidate_smasher.candidate_smasher as candidate_smasher
 import mod_collector.mod_collector as mod_collector
 
 #from models import User,Gender,Role, UserUpdateRequest
@@ -50,8 +51,22 @@ async def read_items(item_id: str):
 @app.post("/getproviderinfo/")
 async def getproviderinfo(info:Request):
     req_info1 =await info.json()
+    template=start_up_code["templates"]
+    ##Running Candidate Smasher
+    content =json.dumps(req_info1)
+    md_source=json.dumps(template)
+    cs = candidate_smasher.CandidateSmasher(content,md_source)
+    if cs.valid():
+        spek_cs=cs.smash()
+    file1 = open('spek_cs.json', 'w')
+    file1.writelines(spek_cs)
+    file1.close()
+    ##  running think pudding-dummycode
+    spek_tp= "./tests/es_spek_tp.json"
+    with open(spek_tp, "r") as file_d:
+        spek_tp = json.load(file_d)
     ##Running Mod Collector
-    spek_tp = req_info1
+    # spek_tp = req_info1
     performance_data = req_info1["Performance_data"]
     performance_data_df =pd.DataFrame (performance_data, columns = [ "Staff_Number","Measure_Name","Month","Passed_Count","Flagged_Count","Denominator"])
     performance_data_df.columns = performance_data_df.iloc[0]
@@ -62,7 +77,7 @@ async def getproviderinfo(info:Request):
     mc.trend_calc_insert()
     mc.trend_pred()
     spek_mc= mc.mod_collector_output()
-    ##Running Esteemer
+    # ##Running Esteemer
     preferences = req_info1['Preferences']
     history=req_info1['History']
     message_code =start_up_code['message_code']
