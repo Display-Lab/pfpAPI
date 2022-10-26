@@ -70,7 +70,7 @@ async def getproviderinfo(info:Request):
     ##Running Mod Collector
     # spek_tp = req_info1
     performance_data = req_info1["Performance_data"]
-    performance_data_df =pd.DataFrame (performance_data, columns = [ "Staff_Number","Measure_Name","Month","Passed_Count","Flagged_Count","Denominator"])
+    performance_data_df =pd.DataFrame (performance_data, columns = [ "Staff_Number","Measure_Name","Month","Passed_Count","Flagged_Count","Denominator","Peer_Average"])
     performance_data_df.columns = performance_data_df.iloc[0]
     performance_data_df = performance_data_df[1:]
     mc=mod_collector.Mod_collector(spek_tp,performance_data_df)
