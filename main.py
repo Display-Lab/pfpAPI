@@ -11,6 +11,8 @@ import pandas as pd
 import esteemer.esteemer as esteemer
 import candidate_smasher.candidate_smasher as candidate_smasher
 import mod_collector.mod_collector as mod_collector
+import pictoralist
+from pictoralist import Pictoralist
 
 #from models import User,Gender,Role, UserUpdateRequest
 app = FastAPI()
@@ -86,6 +88,11 @@ async def getproviderinfo(info:Request):
     es.apply_preferences(preferences)
     es.apply_history(history)
     selected_message=es.select_message()
+    print(selected_message)
+
+    ##Runnning Pictoralist
+    pc=pictoralist.Pictoralist(selected_message,performance_data_df)
+    pc.create_graph()
     
     return {
         "status":"Success",
