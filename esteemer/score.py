@@ -49,6 +49,7 @@ def displaypreferences(meaningful_messages_final,display_preferences_df):
     bar_pref = float(bar_pref)
     nochart_pref = float(nochart_pref)
     my_dict = {"line_pref":[],"bar_pref":[],"nochart_pref":[]}
+    print(line_pref)
     if line_pref == 0:
         line_pref= 1
     elif bar_pref == 0:
