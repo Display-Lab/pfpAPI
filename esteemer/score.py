@@ -170,7 +170,37 @@ def apply_history_message(applied_individual_messages,history,max_val,message_co
 
 
 
+def verify(final_Data,val1,message_code,performance_data):
+    measure_name=final_Data['Measure Name']
+    rslt_df = performance_data.loc[performance_data['Measure_Name']==measure_name]
+    comparison_value=final_Data['comparison value']
+    comparison_value=float(comparison_value)
+    try:
+        rslt_df['performance']=rslt_df['Passed_Count'] / rslt_df['Denominator']
+    except ZeroDivisionError:
+        rslt_df['performance']=1
+    
+    latest_df=rslt_df.iloc[-1]
+    second_df= rslt_df.iloc[-2]
+    third_df=rslt_df.iloc[-3]
+    if (latest_df['performance'] < comparison_value):
+        final_Data['text']= "Your performance is below the goal"
+    elif (latest_df['performance']>=comparison_value):
+        if(second_df['performance']<latest_df['performance']):
+            final_Data['text']="Your performance improved"
+        if(second_df['performance']>latest_df['performance']):
+            final_Data['text']="Your performance improved"
+        if(latest_df['performance']==comparison_value):
+            final_Data['text']="You reached the goal"
 
+
+
+    message_selected_df = final_Data.T
+    message_selected_df.to_csv("message_selected_df.csv")
+    data = message_selected_df.to_json(orient="index", indent=2 )
+    
+    return data.replace("\\", "")
+    #return column
 
 
 
@@ -193,8 +223,8 @@ def select(applied_individual_messages,max_val,message_code):
     message_selected_df = message_selected_df.append(pd.Series(message_selected_df.at['psdo:PerformanceSummaryTextualEntity{Literal}'], index=['Message Code']))
     message_selected_df.at['psdo:PerformanceSummaryTextualEntity{Literal}']=message_code_df.at[0,message]
     message_selected_df   = message_selected_df.drop(['score','display_score','message_score']);
-    message_selected_df = message_selected_df.T
-    data = message_selected_df.to_json(orient="index", indent=2 )
-    
-    return data.replace("\\", "")
-    #return column
+    #message_selected_df = message_selected_df.T
+    #data = message_selected_df.to_json(orient="index", indent=2 )
+    #data.replace("\\", "")
+    return message_selected_df
+

@@ -73,6 +73,9 @@ async def getproviderinfo(info:Request):
     performance_data_df =pd.DataFrame (performance_data, columns = [ "Staff_Number","Measure_Name","Month","Passed_Count","Flagged_Count","Denominator","Peer_Average"])
     performance_data_df.columns = performance_data_df.iloc[0]
     performance_data_df = performance_data_df[1:]
+    measure_list=[]
+    measure_list=performance_data_df['Measure_Name'].drop_duplicates()
+    
     mc=mod_collector.Mod_collector(spek_tp,performance_data_df)
     mc.transform()
     mc.gap_calc_insert()
@@ -83,11 +86,12 @@ async def getproviderinfo(info:Request):
     preferences = req_info1['Preferences']
     history=req_info1['History']
     message_code =start_up_code['message_code']
-    es = esteemer.Esteemer(spek_mc,preferences,message_code,history)
+    es = esteemer.Esteemer(measure_list,spek_mc,preferences,message_code,history,performance_data_df)
     es.transform()
     es.apply_preferences(preferences)
     es.apply_history(history)
-    selected_message=es.select_message()
+    es.select_message()
+    selected_message = es.verify_message()
     print(selected_message)
 
     ##Runnning Pictoralist

@@ -157,9 +157,18 @@ def monotonic_pred(performance_data_df,comparison_values_df):
     trend_df['performance_data_month2']  = performance_data_month2
     trend_df['performance_data_month3']  = performance_data_month3
     trend_df = trend_df[['Measure_Name','performance_data_month1','performance_data_month2','performance_data_month3']]
+    comparison_values_df["slowmo:acceptable_by{URIRef}[0]"].fillna(130, inplace = True)
+    comparison_values_df = comparison_values_df[comparison_values_df['slowmo:acceptable_by{URIRef}[0]']!= 130]
+    comparison_values_df=comparison_values_df.reset_index()
+    
+    comparison_values_df.drop(columns=comparison_values_df.columns[0], axis=1, inplace=True)
+    comparison_values_df= comparison_values_df.drop_duplicates()
+    #comparison_values_df.to_csv("comparison_values3.csv")
+    trend_df =pd.merge( comparison_values_df,trend_df , on='Measure_Name', how='inner')
     #lenb= len(trend_df[['Measure_Name']])
+    comparison_values_df.to_csv("comparison_values3.csv")
     #comparison_values_df = comparison_values_df[0:(lenb-1)]
-    trend_df =pd.merge( comparison_values_df,trend_df , on='Measure_Name', how='outer')
+    #trend_df =pd.merge( comparison_values_df,trend_df , on='Measure_Name', how='outer')
     for rowIndex, row in trend_df.iterrows():
         m1= row['performance_data_month2']-row['performance_data_month1']
         m2= row['performance_data_month3']-row['performance_data_month2']
