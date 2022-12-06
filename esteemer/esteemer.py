@@ -17,7 +17,7 @@ from SPARQLWrapper import XML, SPARQLWrapper
 
 # from .load_for_real import load
 from esteemer.load_esteemer import read, transform,read_contenders,read_measures,read_comparators
-from esteemer.score import score, select,apply_indv_preferences,apply_history_message,verify
+from esteemer.score import score, select,apply_indv_preferences,apply_history_message
 
 # load()
 
@@ -32,8 +32,9 @@ class Esteemer():
     val=" "
     val1=" "
     def __init__(self,measure_list, spek_tp: str = "{}", preferences: str = "{}", message_code: str = "{}", history: str = "{}",performance_data: pd.DataFrame=()):
-        #self.graph_read=read(spek_tp)
-        self.graph_read =spek_tp
+        self.spek_tp = json.dumps(spek_tp)
+        self.graph_read=read(self.spek_tp)
+        #self.graph_read =spek_tp
         self.contenders_graph = read_contenders(self.graph_read)
        
         self.measures_graph = read_measures(self.graph_read)
@@ -64,9 +65,9 @@ class Esteemer():
     
         self.finalData = select(self.applied_history_filter,self.val1,self.message_code)
         #self.finalData.replace("\\", "")
-    def verify_message(self):
-        self.verified_message = verify(self.finalData,self.val1,self.message_code,self.performance_data)
-        return self.verified_message
+    # def verify_message(self):
+    #     self.verified_message = verify(self.finalData,self.val1,self.message_code,self.performance_data)
+        return self.finalData
 
 
 

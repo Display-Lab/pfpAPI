@@ -60,9 +60,9 @@ async def getproviderinfo(info:Request):
     cs = candidate_smasher.CandidateSmasher(content,md_source)
     if cs.valid():
         spek_cs=cs.smash()
-    file1 = open('spek_cs.json', 'w')
-    file1.writelines(spek_cs)
-    file1.close()
+    # file1 = open('spek_cs.json', 'w')
+    # file1.writelines(spek_cs)
+    # file1.close()
     ##  running think pudding-dummycode
     spek_tp= "./tests/es_spek_tp.json"
     with open(spek_tp, "r") as file_d:
@@ -76,22 +76,22 @@ async def getproviderinfo(info:Request):
     measure_list=[]
     measure_list=performance_data_df['Measure_Name'].drop_duplicates()
     
-    mc=mod_collector.Mod_collector(spek_tp,performance_data_df)
-    mc.transform()
-    mc.gap_calc_insert()
-    mc.trend_calc_insert()
-    mc.trend_pred()
-    spek_mc= mc.mod_collector_output()
+    # mc=mod_collector.Mod_collector(spek_tp,performance_data_df)
+    # mc.transform()
+    # mc.gap_calc_insert()
+    # mc.trend_calc_insert()
+    # mc.trend_pred()
+    # spek_mc= mc.mod_collector_output()
     # ##Running Esteemer
     preferences = req_info1['Preferences']
     history=req_info1['History']
     message_code =start_up_code['message_code']
-    es = esteemer.Esteemer(measure_list,spek_mc,preferences,message_code,history,performance_data_df)
+    es = esteemer.Esteemer(measure_list,spek_tp,preferences,message_code,history,performance_data_df)
     es.transform()
     es.apply_preferences(preferences)
     es.apply_history(history)
-    es.select_message()
-    selected_message = es.verify_message()
+    
+    selected_message = es.select_message()
     print(selected_message)
 
     ##Runnning Pictoralist

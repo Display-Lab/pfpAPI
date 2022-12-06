@@ -15,6 +15,7 @@ from SPARQLWrapper import XML, SPARQLWrapper
 
 warnings.filterwarnings("ignore")
 
+
 def gap_calc( performance_data_df, comparison_values):
     comparison_values_df = comparison_values
     goal_gap_size_df = calc_goal_comparator_gap(comparison_values_df,performance_data_df)

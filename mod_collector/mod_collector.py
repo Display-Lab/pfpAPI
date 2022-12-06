@@ -40,7 +40,7 @@ class Mod_collector():
     
     def transform(self):
         self.comparison_values = transform(self.contenders_graph,self.measures_graph,self.comparator_graph)
-
+        self.comparison_values1= self.comparison_values[['comparison_value','Measure_Name']]
     def gap_calc_insert(self):
         self.gap_size= gap_calc( self.performance_data, self.comparison_values)
         self.gap_graph =insert_gap(self.gap_size,self.graph_read)

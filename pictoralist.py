@@ -25,7 +25,7 @@ class Pictoralist():
         self.selected_message_dict=json.loads(selected_message)
         self.performance_data = performance_data
         self.display_format = self.selected_message_dict["psdo:PerformanceSummaryDisplay{Literal}"]
-        self.text= self.selected_message_dict["text"]
+        self.text= self.selected_message_dict["psdo:PerformanceSummaryTextualEntity{Literal}"]
         self.measure_name= self.selected_message_dict["Measure Name"]
         self.display=self.selected_message_dict["psdo:PerformanceSummaryDisplay{Literal}"]
         self.title=self.selected_message_dict["title"]
@@ -96,9 +96,10 @@ class Pictoralist():
             self.graph_df['month1'] = pd.DatetimeIndex(self.graph_df['Month']).month
             self.graph_df['year']=self.graph_df['year'].astype(str)
             self.graph_df['month1']=self.graph_df['month1'].astype(str)+"/"
-            self.graph_df['month2'] = self.graph_df['Month'].dt.strftime('%b')
+            #self.graph_df['Month'] = pd.to_datetime(self.graph_df.Month, format='%Y-%m-%d')
+            #self.graph_df['month2'] = self.graph_df['Month'].dt.strftime('%b', errors='coerce')
             #X=self.graph_df['month1']+self.graph_df['year']
-            X = self.graph_df['month2']
+            X = self.graph_df['month1']
             try:
                 self.graph_df['performance_data'] =(self.graph_df['Passed_Count'] / self.graph_df['Denominator'])*100
             except ZeroDivisionError:
