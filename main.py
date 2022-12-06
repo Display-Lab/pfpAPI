@@ -95,8 +95,8 @@ async def getproviderinfo(info:Request):
     print(selected_message)
 
     ##Runnning Pictoralist
-    pc=pictoralist.Pictoralist(selected_message,performance_data_df)
-    pc.create_graph()
+    # pc=pictoralist.Pictoralist(selected_message,performance_data_df)
+    # pc.create_graph()
     
     return {
         "status":"Success",
