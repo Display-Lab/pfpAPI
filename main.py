@@ -86,13 +86,13 @@ async def getproviderinfo(info:Request):
     preferences = req_info1['Preferences']
     history=req_info1['History']
     message_code =start_up_code['message_code']
-    es = esteemer.Esteemer(measure_list,spek_tp,preferences,message_code,history,performance_data_df)
-    es.transform()
-    es.apply_preferences(preferences)
-    es.apply_history(history)
+    # es = esteemer.Esteemer(measure_list,spek_tp,preferences,message_code,history,performance_data_df)
+    # es.transform()
+    # es.apply_preferences(preferences)
+    # es.apply_history(history)
     
-    selected_message = es.select_message()
-    print(selected_message)
+    # selected_message = es.select_message()
+    print("selected_message")
 
     ##Runnning Pictoralist
     # pc=pictoralist.Pictoralist(selected_message,performance_data_df)
