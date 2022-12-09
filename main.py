@@ -55,11 +55,11 @@ async def getproviderinfo(info:Request):
     req_info1 =await info.json()
     template=start_up_code["templates"]
     ##Running Candidate Smasher
-    # content =json.dumps(req_info1)
-    # md_source=json.dumps(template)
-    # cs = candidate_smasher.CandidateSmasher(content,md_source)
-    # if cs.valid():
-    #     spek_cs=cs.smash()
+    content =json.dumps(req_info1)
+    md_source=json.dumps(template)
+    cs = candidate_smasher.CandidateSmasher(content,md_source)
+    if cs.valid():
+        spek_cs=cs.smash()
     # file1 = open('spek_cs.json', 'w')
     # file1.writelines(spek_cs)
     # file1.close()
@@ -100,6 +100,6 @@ async def getproviderinfo(info:Request):
     
     return {
         "status":"Success",
-        "data": req_info1
+        "data": spek_cs
     }
     
