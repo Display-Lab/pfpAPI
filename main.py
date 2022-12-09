@@ -33,6 +33,9 @@ async def startup_event():
         f2=open("./startup/templates.json")
         templates= json.load(f2)
         start_up_code["templates"]=templates
+        f3=open("./startup/causal_pathways.json")
+        causal_pathways = json.load(f3)
+        start_up_code["causal_pathways"]=causal_pathways
         items["foo"] = {"startup": "Complete"}
         print("startup complete")
     #     #global result 
@@ -54,6 +57,7 @@ async def read_items(item_id: str):
 async def getproviderinfo(info:Request):
     req_info1 =await info.json()
     template=start_up_code["templates"]
+    causal_pathways = start_up_code["causal_pathways"]
     ##Running Candidate Smasher
     content =json.dumps(req_info1)
     md_source=json.dumps(template)
@@ -100,6 +104,6 @@ async def getproviderinfo(info:Request):
     
     return {
         "status":"Success",
-        "data": spek_cs
+        "data": causal_pathways
     }
     
