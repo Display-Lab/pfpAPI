@@ -100,6 +100,6 @@ async def getproviderinfo(info:Request):
     
     return {
         "status":"Success",
-        "data": "selected_message"
+        "data": spek_cs
     }
     
