@@ -48,3 +48,4 @@ uvloop==0.17.0
 watchfiles==0.17.0
 watchgod==0.8.2
 websockets==10.3
+matplotlib==3.6.1
