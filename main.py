@@ -24,23 +24,23 @@ result=" "
 async def startup_event():
     
     
-    # try:
-    #     f1=open("./startup/spek_message_id.json")
-    #     message_code= json.load(f1)
-    #     global start_up_code
-    #     start_up_code["message_code"]=message_code
-    #     #print(message_code)
-    #     f2=open("./startup/templates.json")
-    #     templates= json.load(f2)
-    #     start_up_code["templates"]=templates
-    #     items["foo"] = {"startup": "Complete"}
-    print("startup complete")
+    try:
+        f1=open("./startup/spek_message_id.json")
+        message_code= json.load(f1)
+        global start_up_code
+        start_up_code["message_code"]=message_code
+         #print(message_code)
+        f2=open("./startup/templates.json")
+        templates= json.load(f2)
+        start_up_code["templates"]=templates
+        items["foo"] = {"startup": "Complete"}
+        print("startup complete")
     #     #global result 
     #     #result= json.dumps(start_up_code)
     #     #print(result)
-    # except Exception as e:
-    #     print("Looks like there is some problem in connection,see below traceback")
-    #     raise e
+    except Exception as e:
+        print("Looks like there is some problem in connection,see below traceback")
+        raise e
 
 @app.get("/")
 async def root():
