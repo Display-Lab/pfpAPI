@@ -50,9 +50,9 @@ class Mod_collector():
         self.slope_graph =insert_slope(self.trend_slope,self.gap_graph)
     def trend_pred(self):
         self.monotonic_pred_df = monotonic_pred(self.performance_data,self.comparison_values)
-        self.trend_graph = insert_trend(self.monotonic_pred_df,self.slope_graph)
+        self.trend_graph = insert_trend(self.monoton_pred_df,self.slope_graph)
     def mod_collector_output(self):
-        #return self.trend_graph.serialize(format='json-ld', indent=4)
+        #return self.trend_graph.serialize(format='json-ld', indent=4)ic
         return self.trend_graph
 
     

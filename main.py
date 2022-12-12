@@ -13,6 +13,8 @@ import candidate_smasher.candidate_smasher as candidate_smasher
 import mod_collector.mod_collector as mod_collector
 import pictoralist
 from pictoralist import Pictoralist
+import thinkpudding as thinkpudding
+from thinkpudding import Thinkpudding
 
 #from models import User,Gender,Role, UserUpdateRequest
 app = FastAPI()
@@ -64,6 +66,13 @@ async def getproviderinfo(info:Request):
     cs = candidate_smasher.CandidateSmasher(content,md_source)
     if cs.valid():
         spek_cs=cs.smash()
+    #think pudding
+    tp=Thinkpudding(spek_cs,causal_pathways)
+    tp.process_causalpathways()
+    tp.process_spek()
+    tp.matching()
+    spek_tp=tp.insert()
+
     # file1 = open('spek_cs.json', 'w')
     # file1.writelines(spek_cs)
     # file1.close()
@@ -104,6 +113,6 @@ async def getproviderinfo(info:Request):
     
     return {
         "status":"Success",
-        "data": causal_pathways
+        "data": spek_tp
     }
     
