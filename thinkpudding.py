@@ -25,11 +25,11 @@ class Thinkpudding:
     
     def __init__(self, spek_cs: str = "{}", causal_pathways: str = "{}"):
         start_time = time.time()
-        #self.spek_cs1 = json.dumps(spek_cs)
+        #self.spek_cs = json.dumps(spek_cs)
         self.spek_cs=read(spek_cs)
         logging.critical(" reading spek graph--- %s seconds ---" % (time.time() - start_time)) 
         start_time = time.time()
-        #self.causal_pathways1 = json.dumps(causal_pathways)
+        #self.causal_pathways = json.dumps(causal_pathways)
         self.causal_pathways=read(causal_pathways)
         logging.critical(" reading causal pathways graph--- %s seconds ---" % (time.time() - start_time))
     
@@ -52,7 +52,8 @@ class Thinkpudding:
         start_time = time.time()
         self.spek_tp=insert(self.merged_list,self.spek_cs)
         logging.critical(" inserting acceptable by--- %s seconds ---" % (time.time() - start_time))
-        return self.spek_tp
+        
+        return self.spek_tp.serialize(format='json-ld', indent=4)
 
 # print(spek_tp.serialize(format='json-ld', indent=4))   
 # logging.critical("complete thinkpudding--- %s seconds ---" % (time.time() - start_time1))
