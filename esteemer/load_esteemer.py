@@ -30,17 +30,11 @@ def read_contenders(graph_read):
     PREFIX slowmo: <http://example.com/slowmo#>
     construct {
     ?candidate ?p ?o .
-    ?candidate obo:RO_0000091 ?o2 .
-    ?o2 slowmo:RegardingComparator ?comparator .
-    ?o2 slowmo:RegardingMeasure ?measure .
-    ?candidate slowmo:acceptable_by ?o3 .
+    
     } 
     WHERE {
     ?candidate ?p ?o .
-    ?candidate obo:RO_0000091 ?o2 .
-    ?o2 slowmo:RegardingComparator ?comparator .
-    ?o2 slowmo:RegardingMeasure ?measure .
-    ?candidate slowmo:acceptable_by ?o3 .
+    
     }
     """
     )
@@ -274,7 +268,7 @@ def transform(contenders_graph,measures_graph,comparator_graph,measure_list):
     )
     newdf = meaningful_messages_final[meaningful_messages_final['Measure Name'].isin(measure_list)]
     newdf.head()
-    #meaningful_messages_final.to_csv("final_list.csv")
+    meaningful_messages_final.to_csv("final_list.csv")
     logging.critical("transforming--- %s seconds ---" % (time.time() - start_time))
     # return contender_messages_df
     return newdf

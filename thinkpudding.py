@@ -53,8 +53,7 @@ class Thinkpudding:
         self.spek_tp=insert(self.merged_list,self.spek_cs)
         logging.critical(" inserting acceptable by--- %s seconds ---" % (time.time() - start_time))
         
-        return self.spek_tp.serialize(format='json-ld', indent=4)
-
+        return self.spek_tp
 # print(spek_tp.serialize(format='json-ld', indent=4))   
 # logging.critical("complete thinkpudding--- %s seconds ---" % (time.time() - start_time1))
 #print(caus_out_dict) 
